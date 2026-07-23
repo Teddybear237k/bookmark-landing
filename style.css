@@ -125,7 +125,7 @@ footer > div {
 }
 
 .nav-list a:hover {
-  color: var(--primary);
+  color: var(--accent);
   transform: translateY(-2px);
 }
 
@@ -143,7 +143,6 @@ footer > div {
   text-decoration: none;
   border: 1px solid transparent;
   background: transparent;
-  color: var(--text);
   cursor: pointer;
   transition: transform 0.2s ease, box-shadow 0.2s ease, background-color 0.2s ease, color 0.2s ease, border-color 0.2s ease;
   will-change: transform, box-shadow, background-color;
@@ -165,7 +164,9 @@ footer > div {
 }
 
 .btn-primary:hover {
-  background: hsl(231 72% 55%);
+  background: hsl(0, 0%, 100%);
+  color: var(--primary);
+  border-color: var(--primary);
   box-shadow: 0 20px 35px rgba(86, 97, 242, 0.22);
 }
 
@@ -178,8 +179,8 @@ footer > div {
 
 .btn-outline:hover {
   background: #ffffff;
-  border-color: rgba(86, 97, 242, 0.25);
-  box-shadow: 0 12px 26px rgba(34, 41, 64, 0.08);
+  border-color: var(--focus);
+  box-shadow: 0 12px 26px var(--focus);
 }
 
 .btn-accent {
@@ -195,15 +196,15 @@ footer > div {
 }
 
 .btn-login {
-  background: #ffffff;
-  color: hsl(231 69% 60%);
+  background:hsl(0, 94%, 66%);
+  color: hsl(0, 100%, 99%);
   box-shadow: 0 12px 30px rgba(86, 97, 242, 0.12);
-  border-color: rgba(86, 97, 242, 0.15);
+  border-color: hsl(0, 94%, 66%);
 }
 
 .btn-login:hover {
   background: rgba(255, 255, 255, 0.95);
-  color: hsl(231 69% 60%);
+  color: hsl(0, 94%, 66%);
   box-shadow: 0 18px 40px rgba(86, 97, 242, 0.18);
 }
 
@@ -307,6 +308,10 @@ footer > div {
   color: var(--muted);
   cursor: pointer;
   transition: color 0.2s ease, border-color 0.2s ease;
+}
+
+.tab-label:hover {
+	color: var(--accent);
 }
 
 .tab-label:focus {
@@ -468,6 +473,10 @@ footer > div {
   transition: transform 0.25s ease;
 }
 
+.accordion summary:hover {
+	color: var(--accent);
+}
+
 .accordion details[open] summary:after {
   transform: rotate(-180deg);
 }
@@ -548,6 +557,10 @@ footer > div {
   border-radius: 8px;
 }
 
+.contact-form:has(:invalid) + .form-error {
+  display: block;
+}
+
 .site-footer {
   padding: 2rem 0 1.5rem;
   background: hsl(231 33% 14%);
@@ -573,6 +586,10 @@ footer > div {
   gap: 1.5rem;
   flex-wrap: wrap;
   justify-content: center;
+}
+
+.footer-nav:hover {
+	color: var(--accent);
 }
 
 .socials {
@@ -625,6 +642,14 @@ footer > div {
   justify-content: flex-end;
 }
 
+.form-error {
+  display: none;
+  color: var(--accent);
+  background: rgba(255, 107, 107, 0.08);
+  padding: 0.6rem;
+  border-radius: 6px;
+}
+
 .contact-success {
   display: none;
   text-align: center;
@@ -632,6 +657,10 @@ footer > div {
   margin-top: 1rem;
   background: rgba(86, 97, 242, 0.08);
   border-radius: 8px;
+}
+
+.contact-form:has(:invalid) .form-error {
+  display: block;
 }
 
 #contact-success:target {
