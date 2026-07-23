@@ -182,24 +182,10 @@
             <p class="section-sub">35,000+ already joined</p>
 
             <form class="contact-form" action="#contact-success" method="GET" novalidate>
-                <div class="form-row">
-                    <label for="email">Email address</label>
-                    <input id="email" name="email" type="email" placeholder="example@email.com" required>
-                </div>
-                <div class="form-row">
-                    <label for="message">Message</label>
-                    <textarea id="message" name="message" rows="4" required></textarea>
-                </div>
-                <div class="form-actions">
-                    <button type="submit" class="btn btn-accent">Contact Us</button>
-                </div>
-
-                <div class="form-error" aria-live="polite">Please fill in the required fields correctly.</div>
+                <label class="sr-only" for="email">Email address</label>
+                <input id="email" name="email" type="email" placeholder="Enter your email address" required>
+                <button type="submit" class="btn btn-accent">Contact Us</button>
             </form>
-
-            <div id="contact-success" class="contact-success" tabindex="-1">
-                <p>Thanks — we'll be in touch shortly.</p>
-            </div>
         </section>
     </main>
 

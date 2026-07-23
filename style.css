@@ -2,7 +2,7 @@
 
 :root {
   --bg: hsl(0 0% 97%);
-  --panel: #ffffff;
+  --panel: hsl(0 0% 100%);
   --text: hsl(229 31% 21%);
   --muted: hsl(229 20% 60%);
   --primary: hsl(231 69% 60%);
@@ -137,7 +137,7 @@ footer > div {
   min-height: 48px;
   padding: 0.95rem 1.75rem;
   border-radius: 12px;
-  font-weight: 700;
+  font-weight: 500;
   font-size: 0.95rem;
   letter-spacing: 0.03em;
   text-decoration: none;
@@ -225,7 +225,7 @@ footer > div {
   align-items: center;
   text-decoration: none;
   color: var(--text);
-  font-weight: 700;
+  font-weight: 500;
 }
 
 .logo-mark {
@@ -237,7 +237,7 @@ footer > div {
   align-items: center;
   justify-content: center;
   border-radius: 50%;
-  font-weight: 700;
+  font-weight: 500;
 }
 
 .mobile-menu-toggle {
@@ -423,16 +423,20 @@ footer > div {
   background: radial-gradient(circle at 30% 40%, #fff0f3, #fff);
 }
 
-.accordion details {
-  background: transparent;
-  padding: 0.75rem 0;
-  border-bottom: 1px solid rgba(34, 41, 64, 0.12);
-  margin-bottom: 0.5rem;
-  box-shadow: none;
+.accordion {
+  max-width: 720px;
+  margin: 0 auto;
 }
 
-.accordion summary {
-  padding: 0.75rem 0;
+.accordion details {
+  background: transparent;
+  padding: 1.25rem 0;
+  border-bottom: 1px solid rgba(34, 41, 64, 0.12);
+  margin-bottom: 0;
+}
+
+.accordion details:last-child {
+  border-bottom: none;
 }
 
 .accordion summary {
@@ -442,7 +446,9 @@ footer > div {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 0.4rem 0;
+  padding: 0;
+  font-weight: 500;
+  color: var(--text);
 }
 
 .accordion summary::-webkit-details-marker {
@@ -450,7 +456,15 @@ footer > div {
 }
 
 .accordion summary:after {
-  content: "▾";
+  content: "";
+  display: inline-block;
+  width: 18px;
+  height: 18px;
+  margin-left: 0.75rem;
+  background-image: url("./images/icon-arrow.svg");
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: contain;
   transition: transform 0.25s ease;
 }
 
@@ -458,15 +472,113 @@ footer > div {
   transform: rotate(-180deg);
 }
 
+.accordion details[open] summary {
+  color: var(--text);
+}
+
 .answer {
   color: var(--muted);
-  margin-top: 0.5rem;
+  margin-top: 1rem;
+  line-height: 1.75;
+}
+
+.center {
+  text-align: center;
 }
 
 .contact {
-  padding: 4rem 0;
-  background: linear-gradient(180deg, hsl(231 70% 60%), hsl(231 70% 55%));
+  padding: 5rem 0;
+  background: hsl(231 70% 60%);
   color: var(--panel);
+}
+
+.contact-form {
+  margin: 1.5rem auto 0;
+  max-width: 640px;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  gap: 1rem;
+  align-items: center;
+}
+
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+.form-row label,
+.form-row textarea {
+  display: none;
+}
+
+.form-row input,
+.form-row textarea,
+.contact-form input {
+  width: 100%;
+  padding: 0.95rem 1rem;
+  border-radius: 12px;
+  border: 1px solid rgba(255, 255, 255, 0.28);
+  background: rgba(255, 255, 255, 0.18);
+  color: var(--panel);
+}
+
+.form-row input::placeholder,
+.form-row textarea::placeholder,
+.contact-form input::placeholder {
+  color: rgba(255, 255, 255, 0.78);
+}
+
+.form-actions {
+  margin: 0;
+}
+
+.contact-success {
+  display: none;
+  text-align: center;
+  padding: 1rem;
+  margin-top: 1rem;
+  background: rgba(255, 255, 255, 0.12);
+  border-radius: 8px;
+}
+
+.site-footer {
+  padding: 2rem 0 1.5rem;
+  background: hsl(231 33% 14%);
+  color: #ffffff;
+}
+
+.footer-inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
+.footer-brand {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.footer-nav {
+  display: flex;
+  gap: 1.5rem;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.socials {
+  display: flex;
+  gap: 0.75rem;
+  align-items: center;
 }
 
 .contact-form {
@@ -513,14 +625,6 @@ footer > div {
   justify-content: flex-end;
 }
 
-.form-error {
-  display: none;
-  color: var(--accent);
-  background: rgba(255, 107, 107, 0.08);
-  padding: 0.6rem;
-  border-radius: 6px;
-}
-
 .contact-success {
   display: none;
   text-align: center;
@@ -528,10 +632,6 @@ footer > div {
   margin-top: 1rem;
   background: rgba(86, 97, 242, 0.08);
   border-radius: 8px;
-}
-
-.contact-form:has(:invalid) .form-error {
-  display: block;
 }
 
 #contact-success:target {
@@ -569,7 +669,7 @@ footer > div {
   display: flex;
   align-items: center;
   gap: 0.75rem;
-  font-weight: 700;
+  font-weight: 500;
 }
 
 .logo-word {
@@ -674,7 +774,7 @@ footer > div {
   .mobile-menu .mobile-nav a {
     color: var(--text);
     text-decoration: none;
-    font-weight: 700;
+    font-weight: 500;
     padding: 0.9rem 1rem;
     border-radius: 8px;
   }
