@@ -29,3 +29,8 @@ I also didn't really do themes because I didn't understand if I was to leave a d
 ### AI Collaboration
 
 I uesd Claude to help me implement the background blue design and also tried it for Javascript which I finally deleted because I didn't understand it's function thus making my exercise incomplete because of that.
+
+
+### Updates:
+-- Added 2 theme blocks: [data-theme="dark"] and [data-theme="contrast"].
+-- Fixed every dead widget and js free.
