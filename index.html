@@ -30,9 +30,34 @@
                 <a class="login-link" href="#">Login</a>
             </nav>
 
-            <label class="mobile-menu-button" for="mobile-menu-toggle" aria-label="Open menu">
-                <img src="./images/icon-hamburger.svg" alt="" aria-hidden="true" />
-            </label>
+            <div class="header-actions">
+                <div class="theme-switcher" role="radiogroup" aria-label="Theme">
+                    <label class="theme-option" for="theme-light">
+                        <input type="radio" name="theme" id="theme-light" class="sr-only" />
+                        <span aria-hidden="true">L</span>
+                        <span class="sr-only">Light theme</span>
+                    </label>
+                    <label class="theme-option" for="theme-dark">
+                        <input type="radio" name="theme" id="theme-dark" class="sr-only" />
+                        <span aria-hidden="true">D</span>
+                        <span class="sr-only">Dark theme</span>
+                    </label>
+                    <label class="theme-option" for="theme-contrast">
+                        <input type="radio" name="theme" id="theme-contrast" class="sr-only" />
+                        <span aria-hidden="true">C</span>
+                        <span class="sr-only">High contrast theme</span>
+                    </label>
+                    <label class="theme-option" for="theme-sepia">
+                        <input type="radio" name="theme" id="theme-sepia" class="sr-only" />
+                        <span aria-hidden="true">S</span>
+                        <span class="sr-only">Sepia theme</span>
+                    </label>
+                </div>
+
+                <label class="mobile-menu-button" for="mobile-menu-toggle" aria-label="Open menu">
+                    <img src="./images/icon-hamburger.svg" alt="" aria-hidden="true" />
+                </label>
+            </div>
         </div>
 
         <div class="mobile-menu" id="mobile-menu">
@@ -56,10 +81,10 @@
 
                 <div class="mobile-socials" aria-label="Social links">
                     <a href="#" aria-label="Facebook">
-                        <img src="./images/icon-facebook.svg" alt="" aria-hidden="true" />
+                        <span class="social-icon social-icon-facebook" aria-hidden="true"></span>
                     </a>
                     <a href="#" aria-label="Twitter">
-                        <img src="./images/icon-twitter.svg" alt="" aria-hidden="true" />
+                        <span class="social-icon social-icon-twitter" aria-hidden="true"></span>
                     </a>
                 </div>
             </div>
@@ -306,6 +331,9 @@
                         <p class="error-message" id="email-error" role="alert">
                             Whoops, make sure it’s an email
                         </p>
+                        <p class="success-message" id="email-success" role="status">
+                            Looks good — you’re all set
+                        </p>
                     </div>
 
                     <button class="button contact-submit" type="submit">
@@ -330,10 +358,10 @@
 
             <div class="footer-socials" aria-label="Social links">
                 <a href="#" aria-label="Facebook">
-                    <img src="./images/icon-facebook.svg" alt="" aria-hidden="true" />
+                    <span class="social-icon social-icon-facebook" aria-hidden="true"></span>
                 </a>
                 <a href="#" aria-label="Twitter">
-                    <img src="./images/icon-twitter.svg" alt="" aria-hidden="true" />
+                    <span class="social-icon social-icon-twitter" aria-hidden="true"></span>
                 </a>
             </div>
         </div>
