@@ -9,7 +9,6 @@
 
 - HTML
 - CSS
-- JS
 
 ### What I learned
 
@@ -32,5 +31,11 @@ I uesd Claude to help me implement the background blue design and also tried it 
 
 
 ### Updates:
--- Added 2 theme blocks: [data-theme="dark"] and [data-theme="contrast"].
--- Fixed every dead widget and js free.
+-- Added 2 theme blocks: [data-theme="dark"] and [data-theme="contrast"]. -- Fixed every dead widget and js free.
+
+Theming update
+Replaced the two lone --bg/--text overrides with a full set of role tokens (--surface, --text-muted, --border, --chrome-bg,--chrome-text) so every component repaints, not just the page background.
+--Added a real toggle: three radio buttons in the header, wired with :has(), no JS. An explicit choice always beats the system default.
+--Added @media (prefers-color-scheme: dark) so the site opens in dark mode automatically if the OS is set to dark, until the visitor picks a theme.
+--Added a sepia theme as a fourth option, mostly to prove the token setup actually works everywhere.
+--Added the missing success state on the email field (same :has() pattern as the error state, just :valid instead of :invalid).
