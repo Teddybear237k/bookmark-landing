@@ -1,14 +1,23 @@
 @import url("https://fonts.googleapis.com/css2?family=Rubik:wght@400;500&display=swap");
 
 :root {
-  --bg: white;
-  --text: hsl(229, 31%, 21%);
+  /* Raw palette — components never read these directly. Roles below do. */
   --blue-600: hsl(231, 69%, 60%);
   --red-400: hsl(0, 94%, 66%);
   --grey-50: hsl(0, 0%, 97%);
   --blue-950: hsl(229, 31%, 21%);
   --grey-text: hsl(229, 12%, 46%);
   --white: hsl(0, 0%, 100%);
+  --green-500: hsl(145, 63%, 38%);
+
+  /* Role tokens — every component reads these. Light theme = defaults. */
+  --bg: var(--white);
+  --surface: var(--white);
+  --text: var(--blue-950);
+  --text-muted: var(--grey-text);
+  --border: hsl(229, 18%, 85%);
+  --chrome-bg: var(--blue-950);
+  --chrome-text: var(--white);
 
   --shadow-sm: 0 0.5rem 1rem hsla(231, 69%, 60%, 0.14);
   --shadow-md: 0 1rem 2rem hsla(231, 69%, 60%, 0.18);
@@ -17,14 +26,58 @@
   --radius: 0.35rem;
 }
 
-[data-theme="dark"] {
-  --bg: hsl(229, 31%, 12%);
-  --text: white;
+/* Explicit choice (radios in the header) always wins over system preference. */
+html:has(#theme-light:checked) {
+  --bg: var(--white);
+  --surface: var(--white);
+  --text: var(--blue-950);
+  --text-muted: var(--grey-text);
+  --border: hsl(229, 18%, 85%);
+  --chrome-bg: var(--blue-950);
+  --chrome-text: var(--white);
 }
 
-[data-theme="contrast"] {
+html:has(#theme-dark:checked) {
+  --bg: hsl(229, 31%, 12%);
+  --surface: hsl(229, 26%, 18%);
+  --text: var(--white);
+  --text-muted: hsl(229, 12%, 64%);
+  --border: hsla(0, 0%, 100%, 0.12);
+  --chrome-bg: hsl(229, 31%, 8%);
+  --chrome-text: var(--white);
+}
+
+html:has(#theme-contrast:checked) {
   --bg: hsl(240, 10%, 10%);
+  --surface: hsl(240, 12%, 15%);
   --text: hsl(45, 100%, 90%);
+  --text-muted: hsl(45, 30%, 55%);
+  --border: hsla(45, 60%, 80%, 0.18);
+  --chrome-bg: hsl(240, 14%, 6%);
+  --chrome-text: hsl(45, 100%, 90%);
+}
+
+html:has(#theme-sepia:checked) {
+  --bg: hsl(35, 38%, 92%);
+  --surface: hsl(35, 45%, 87%);
+  --text: hsl(25, 45%, 20%);
+  --text-muted: hsl(25, 30%, 36%);
+  --border: hsl(30, 30%, 75%);
+  --chrome-bg: hsl(25, 45%, 20%);
+  --chrome-text: hsl(35, 38%, 92%);
+}
+
+/* No explicit choice made yet: follow the system, same values as the dark block. */
+@media (prefers-color-scheme: dark) {
+  html:not(:has(input[name="theme"]:checked)) {
+    --bg: hsl(229, 31%, 12%);
+    --surface: hsl(229, 26%, 18%);
+    --text: var(--white);
+    --text-muted: hsl(229, 12%, 64%);
+    --border: hsla(0, 0%, 100%, 0.12);
+    --chrome-bg: hsl(229, 31%, 8%);
+    --chrome-text: var(--white);
+  }
 }
 
 *,
@@ -177,7 +230,7 @@ input:focus-visible {
 
 .section-heading p {
   margin: 0;
-  color: var(--grey-text);
+  color: var(--text-muted);
   font-size: 1rem;
 }
 
@@ -239,6 +292,54 @@ input:focus-visible {
   position: absolute;
 }
 
+.header-actions {
+  display: flex;
+  align-items: center;
+  gap: 1.25rem;
+}
+
+.theme-switcher {
+  display: flex;
+  gap: 0.35rem;
+}
+
+.theme-option {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 1.9rem;
+  height: 1.9rem;
+  border: 0.0625rem solid var(--border);
+  border-radius: 999px;
+  cursor: pointer;
+  color: var(--text-muted);
+  font-size: 0.68rem;
+  font-weight: 500;
+  transition:
+    color 180ms ease,
+    background-color 180ms ease,
+    border-color 180ms ease;
+}
+
+.theme-option:hover {
+  color: var(--red-400);
+  border-color: var(--red-400);
+}
+
+.theme-option:has(:focus-visible) {
+  outline: 0.18rem solid var(--red-400);
+  outline-offset: 0.18rem;
+}
+
+.theme-switcher:has(#theme-light:checked) label[for="theme-light"],
+.theme-switcher:has(#theme-dark:checked) label[for="theme-dark"],
+.theme-switcher:has(#theme-contrast:checked) label[for="theme-contrast"],
+.theme-switcher:has(#theme-sepia:checked) label[for="theme-sepia"] {
+  color: var(--white);
+  background: var(--red-400);
+  border-color: var(--red-400);
+}
+
 .mobile-menu-button {
   display: none;
   cursor: pointer;
@@ -265,7 +366,7 @@ input:focus-visible {
   z-index: 100;
   display: none;
   background: hsla(229, 31%, 21%, 0.96);
-  color: var(--white);
+  color: var(--chrome-text);
 }
 
 .mobile-menu-toggle:checked ~ .mobile-menu {
@@ -360,7 +461,7 @@ body:has(.mobile-menu-toggle:checked) {
 
 .hero-content p {
   margin: 0;
-  color: var(--grey-text);
+  color: var(--text-muted);
   font-size: 1.05rem;
 }
 
@@ -403,7 +504,7 @@ body:has(.mobile-menu-toggle:checked) {
   margin-inline: auto;
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  border-bottom: 0.0625rem solid hsl(229, 18%, 85%);
+  border-bottom: 0.0625rem solid var(--border);
 }
 
 .tab-button {
@@ -413,7 +514,7 @@ body:has(.mobile-menu-toggle:checked) {
   justify-content: center;
   cursor: pointer;
   padding: 1.5rem 1rem;
-  color: var(--grey-text);
+  color: var(--text-muted);
   font-size: 1rem;
   transition: color 180ms ease;
 }
@@ -423,7 +524,7 @@ body:has(.mobile-menu-toggle:checked) {
 }
 
 .tab-button:has(:checked) {
-  color: var(--blue-950);
+  color: var(--text);
 }
 
 .tab-button:has(:checked)::after {
@@ -509,7 +610,7 @@ body:has(.mobile-menu-toggle:checked) {
 
 .feature-content p {
   margin: 0 0 2rem;
-  color: var(--grey-text);
+  color: var(--text-muted);
   font-size: 1.02rem;
 }
 
@@ -554,7 +655,7 @@ body:has(.mobile-menu-toggle:checked) {
   align-items: center;
   padding: 3rem 1.5rem 1.5rem;
   text-align: center;
-  background: var(--white);
+  background: var(--surface);
   border-radius: 0.8rem;
   box-shadow: var(--shadow-md);
 }
@@ -581,7 +682,7 @@ body:has(.mobile-menu-toggle:checked) {
 
 .browser-card p {
   margin: 0;
-  color: var(--grey-text);
+  color: var(--text-muted);
   font-size: 0.9rem;
 }
 
@@ -604,11 +705,11 @@ body:has(.mobile-menu-toggle:checked) {
 .accordion {
   margin-top: 3.5rem;
   text-align: left;
-  border-top: 0.0625rem solid hsl(229, 18%, 85%);
+  border-top: 0.0625rem solid var(--border);
 }
 
 .accordion-item {
-  border-bottom: 0.0625rem solid hsl(229, 18%, 85%);
+  border-bottom: 0.0625rem solid var(--border);
 }
 
 .accordion-details {
@@ -631,7 +732,7 @@ body:has(.mobile-menu-toggle:checked) {
   justify-content: space-between;
   gap: 1rem;
   cursor: pointer;
-  color: var(--blue-950);
+  color: var(--text);
   font-size: 1rem;
   transition: color 180ms ease;
 }
@@ -649,7 +750,7 @@ body:has(.mobile-menu-toggle:checked) {
   width: 1rem;
   height: 1rem;
   flex-shrink: 0;
-  background-color: var(--grey-text);
+  background-color: var(--text-muted);
   mask: url("./images/icon-arrow.svg") no-repeat center / contain;
   -webkit-mask: url("./images/icon-arrow.svg") no-repeat center / contain;
   transition:
@@ -669,7 +770,7 @@ body:has(.mobile-menu-toggle:checked) {
 .accordion-panel p {
   margin: 0;
   padding: 0.2rem 0 1.75rem;
-  color: var(--grey-text);
+  color: var(--text-muted);
   font-size: 1rem;
   line-height: 1.85;
 }
@@ -737,7 +838,12 @@ body:has(.mobile-menu-toggle:checked) {
   border: 0.125rem solid transparent;
   border-radius: var(--radius);
   padding: 0.8rem 3rem 0.8rem 1.2rem;
+  /* Intentionally fixed, not a role: this field's own background is a plain
+     white regardless of site theme, so its text stays a fixed dark colour
+     to match — the pairing is explicit below rather than left to the
+     browser's default white. */
   color: var(--blue-950);
+  background: var(--white);
   font-size: 0.9rem;
 }
 
@@ -780,6 +886,32 @@ body:has(.mobile-menu-toggle:checked) {
   display: block;
 }
 
+.success-message {
+  display: none;
+  margin: 0;
+  padding: 0.28rem 0.75rem 0.45rem;
+  color: var(--white);
+  background: var(--green-500);
+  border-radius: 0 0 var(--radius) var(--radius);
+  font-size: 0.72rem;
+  font-style: italic;
+  text-align: left;
+}
+
+.input-shell:has(input:not(:placeholder-shown):valid) {
+  background: var(--green-500);
+  padding: 0.125rem;
+}
+
+.input-shell:has(input:not(:placeholder-shown):valid) input {
+  border-color: var(--green-500);
+  border-radius: var(--radius) var(--radius) 0 0;
+}
+
+.input-shell:has(input:not(:placeholder-shown):valid) .success-message {
+  display: block;
+}
+
 .contact-submit {
   min-width: 8rem;
   color: var(--white);
@@ -796,8 +928,8 @@ body:has(.mobile-menu-toggle:checked) {
 
 .site-footer {
   padding-block: 2rem;
-  background: var(--blue-950);
-  color: var(--white);
+  background: var(--chrome-bg);
+  color: var(--chrome-text);
 }
 
 .footer-inner {
@@ -836,16 +968,35 @@ body:has(.mobile-menu-toggle:checked) {
 
 .footer-socials a,
 .mobile-socials a {
-  transition:
-    transform 180ms ease,
-    filter 180ms ease;
+  transition: transform 180ms ease;
 }
 
 .footer-socials a:hover,
 .mobile-socials a:hover {
   transform: translateY(-0.15rem);
-  filter: brightness(0) saturate(100%) invert(54%) sepia(93%) saturate(1130%)
-    hue-rotate(323deg) brightness(101%) contrast(97%);
+}
+
+.social-icon {
+  display: block;
+  width: 1.15rem;
+  height: 1.15rem;
+  background-color: var(--chrome-text);
+  transition: background-color 180ms ease;
+}
+
+.social-icon-facebook {
+  mask: url("./images/icon-facebook.svg") no-repeat center / contain;
+  -webkit-mask: url("./images/icon-facebook.svg") no-repeat center / contain;
+}
+
+.social-icon-twitter {
+  mask: url("./images/icon-twitter.svg") no-repeat center / contain;
+  -webkit-mask: url("./images/icon-twitter.svg") no-repeat center / contain;
+}
+
+.footer-socials a:hover .social-icon,
+.mobile-socials a:hover .social-icon {
+  background-color: var(--red-400);
 }
 
 /* Responsive */
